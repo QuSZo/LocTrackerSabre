@@ -10,3 +10,4 @@
 ## Diagram w notacji C4, level 1
 ![alt text](https://github.com/QuSZo/LocTrackerSabre/blob/main/C4%20Architecture%20-%20Context.jpg?raw=true)
 ## Diagram w notacji C4, level 2
+![alt text](https://github.com/QuSZo/LocTrackerSabre/blob/main/C4%20Architecture%20-%20Containers.jpg?raw=true)
