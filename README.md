@@ -7,4 +7,6 @@
 4. Przechowywanie informacji o lokalizacji w Cloud Storage.
 5. Poprzez pub/sub wysyłanie maila z alertem o tym, że urządzenie znajduje się w zakazanej lokalizacji.
 
+## Diagram w notacji C4, level 1
+![alt text](https://github.com/QuSZo/LocTrackerSabre/blob/main/C4%20Architecture%20-%20Context.jpg?raw=true)
 ## Diagram w notacji C4, level 2
