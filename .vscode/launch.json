@@ -1,0 +1,23 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Gate WebAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build gate",
+      "program": "${workspaceFolder}/sources/apps/Gate/src/bin/Debug/net9.0/Gate.dll",
+      "cwd": "${workspaceFolder}/sources/apps/Gate/src",
+      "stopAtEntry": false,
+    },
+    {
+      "name": "Launch Location WebAPI",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build location",
+      "program": "${workspaceFolder}/sources/apps/Location/src/bin/Debug/net9.0/Location.dll",
+      "cwd": "${workspaceFolder}/sources/apps/Location/src",
+      "stopAtEntry": false,
+    },
+  ]
+}
