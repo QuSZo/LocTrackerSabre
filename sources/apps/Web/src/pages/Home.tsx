@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
 import L from "leaflet";
-import icon from "leaflet/dist/images/marker-icon.png";
-import iconShadow from "leaflet/dist/images/marker-shadow.png";
+import iconUrl from "leaflet/dist/images/marker-icon.png";
+import iconShadowUrl from "leaflet/dist/images/marker-shadow.png";
 import 'leaflet/dist/leaflet.css'
 import './../App.css'
 
-delete (L.Icon.Default.prototype as any)._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
+  iconUrl: iconUrl,
+  shadowUrl: iconShadowUrl,
+  iconRetinaUrl: iconUrl,
 });
 
 const API_URL = "https://location-273348683080.europe-central2.run.app/api/device/locations";
