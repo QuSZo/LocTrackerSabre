@@ -1,7 +1,10 @@
+using Location.Database.Repositories;
+
 namespace Location.DeviceService;
 
 public class LocationPersistence
 {
+    private readonly DeviceLocationRepository _repository;
     private readonly List<DeviceLocation> deviceLocations = new List<DeviceLocation> {
         new DeviceLocation(new Guid("8343a9b1-ad5e-4fcb-9b80-4347229e2f17"), default, default, default),
         new DeviceLocation(new Guid("441cfb3d-9724-4606-a171-638e92545c47"), default, default, default),
@@ -16,8 +19,9 @@ public class LocationPersistence
 
     private readonly object _lock = new();
 
-    public LocationPersistence()
+    public LocationPersistence(DeviceLocationRepository repository)
     {
+        _repository = repository;
     }
 
     public List<DeviceLocation> GetDeviceLocations => deviceLocations;
@@ -33,6 +37,8 @@ public class LocationPersistence
                 deviceLocation.Latitude = receivedDeviceLocation.Latitude;
                 deviceLocation.Longitude = receivedDeviceLocation.Longitude;
                 deviceLocation.TimestampUtc = receivedDeviceLocation.TimestampUtc;
+
+                _repository.SaveLocationAsync(deviceLocation).GetAwaiter().GetResult();
             }
         }
     }
