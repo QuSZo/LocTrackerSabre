@@ -6,10 +6,12 @@ namespace Gate.Cloud;
 public class CloudPublisher
 {
     private readonly CloudPublisherClient _cloudPublisherClient;
+    private readonly ILogger<CloudPublisher> _logger;
     
-    public CloudPublisher(CloudPublisherClient cloudPublisherClient)
+    public CloudPublisher(CloudPublisherClient cloudPublisherClient, ILogger<CloudPublisher> logger)
     {
         _cloudPublisherClient = cloudPublisherClient;
+        _logger = logger;
     }
 
     public async Task PublishAsync(string message)
@@ -20,5 +22,7 @@ public class CloudPublisher
         };
 
         await _cloudPublisherClient.PublishAsync(pubSubMessage);
+
+        _logger.LogInformation($"Published message: {message}");
     }
 }

@@ -4,15 +4,19 @@ namespace Location.Cloud;
 
 public class CloudConsumer
 {
+    private readonly SubscriptionName _subscriptionName; 
     private readonly SubscriberClient _subscriberClient;
+    private readonly ILogger<CloudConsumer> _logger;
     
-    public CloudConsumer(CloudConfiguration configuration)
+    public CloudConsumer(CloudConfiguration configuration, ILogger<CloudConsumer> logger)
     {
-        var subscriptionName = SubscriptionName.FromProjectSubscription(
+        _logger = logger;
+
+        _subscriptionName = SubscriptionName.FromProjectSubscription(
             configuration.ProjectId,
             configuration.SubscriptionId);
 
-        _subscriberClient = SubscriberClient.Create(subscriptionName);
+        _subscriberClient = SubscriberClient.Create(_subscriptionName);
     }
 
     public event Action<string>? MessageReceived;
@@ -34,13 +38,11 @@ public class CloudConsumer
         try
         {
             bool success = ProcessMessage(message);
-            return success
-                ? SubscriberClient.Reply.Ack
-                : SubscriberClient.Reply.Nack;
+            return success ? SubscriberClient.Reply.Ack : SubscriberClient.Reply.Nack;
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Błąd: {ex.Message}");
+            _logger.LogError($"Error during processing message on subscription name: {_subscriptionName.ToString}. Error: {ex.Message}");
             return SubscriberClient.Reply.Nack;
         }
     }
@@ -48,7 +50,7 @@ public class CloudConsumer
     private bool ProcessMessage(PubsubMessage message)
     {
         string data = message.Data.ToStringUtf8();
-        Console.WriteLine($"Odebrano: {data}");
+        _logger.LogInformation($"Received message: {data}");
 
         MessageReceived?.Invoke(data);
 
